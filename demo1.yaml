@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodedemo-app
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodedemo-app
+  template:
+    metadata:
+      labels:
+        app: nodedemo-app
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: nodedemo-app
+        image: cbreakspear/mydemoaks:v1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+        env:
+        - name: REDIS
+          value: "nodedemo-app"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodedemo-app
+  namespace: default
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: nodedemo-app
