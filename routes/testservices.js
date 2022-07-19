@@ -1,40 +1,12 @@
-var cfenv = require('cfenv');
-var appEnv = cfenv.getAppEnv();
-const apiKey = '1bfea4e2df247672406808abb0ecf287';
-const request = require('request'); 
-
-//host=pg-db-test.postgres.database.azure.com port=5432 
-//dbname=postgres user=cbreakspear@pg-db-test password=Destination2021 sslmode=require
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'cbreakspear@pg-db-test',
-  host: 'pg-db-test.postgres.database.azure.com',
-  database: 'postgres',
-  password: 'Destination2021',
-  port: 5432,
-  ssl: true,
-})
-/*
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: '192.168.99.100',
-  database: 'testdb',
-  password: 'Destination2021',
-  port: 5432,
-})
-*/
-
-// alternative:
-// var cn = 'postgres://username:password@host:port/database';
+var express = require('express');
+var router = express.Router();
 
 
-
-exports.landPage = function(req, res) {console.log('Landing Page');
+router.get('/landPage',function(req, res, next) {console.log('Landing Page');
     res.sendFile(__dirname + '/Test.html');
-};
+});
 
-exports.getQuoteoftheDay = function (req, res) 
+router.get('/getQuoteoftheDay',function (req, res) 
 {
     quotes = [];
 
@@ -57,13 +29,13 @@ exports.getQuoteoftheDay = function (req, res)
       res.send(quotes[id]);
   
     console.log('Sending Quote of the Day');
-};
+});
 
-exports.getTest = function(req, res) {console.log('Reaching service for testing container');
+router.get('/getTest',function(req, res) {console.log('Reaching service for testing container');
 res.status(200).json('You have reached the SERVICE :)');
-};
+});
 
-exports.getDateandTime = function(req, res, getval) {
+router.get('/getDateandTime',function(req, res, getval) {
     
 
   let date_time = new Date();
@@ -94,9 +66,9 @@ let seconds = date_time.getSeconds();
 
       console.log('Sending Date and Time : ' + year + "-" + month + "-" + date);
      
-};
+});
 
-
+module.exports = router;
 
 
 
