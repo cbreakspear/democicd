@@ -19,3 +19,6 @@ docker build -t cbreakspear/mypyimage .
 
  ----GET ACCESS TO THE CLUSTER
  az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
+
+
+ git push --set-upstream origin Stage-Branch
