@@ -13,9 +13,11 @@ app.use('/css', express.static(__dirname + '/css'));
 
 
 app.use('/', testservices);
+app.use('/getICGHeadline', testservices);
 app.use('/getQuoteoftheDay', testservices);
 app.use('/getDateandTime', testservices);
 app.use('/getTest', testservices);
+app.use('/getVersion', testservices);
 
 
 // catch 404 and forward to error handler

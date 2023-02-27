@@ -6,6 +6,27 @@ router.get('/landPage',function(req, res, next) {console.log('Landing Page');
     res.sendFile(__dirname + '/Test.html');
 });
 
+router.get('/getICGHeadline',function (req, res) 
+{
+    quotes = [];
+
+    q = { "id":"0", "quotation":"Our leadership team has breadth of experience in the book and technology industries.","author":"Leadership"};
+    quotes.push(q);
+    q = { "id":"1", "quotation":"See us at one of the many industry and community events we attend all across the globe.","author":"Events"};
+    quotes.push(q);
+    q = { "id":"2", "quotation":"We do our best to keep our finger on the pulse of the fast moving book industry.","author":"News"};
+    quotes.push(q);
+    q = { "id":"3", "quotation":"We are dedicated to giving back to the communities where we work and live.","author":"Community"};
+    quotes.push(q);
+
+    const id = Math.floor(Math.random() * 3);
+    
+ 
+      res.send(quotes[id]);
+  
+    console.log('Sending Quote of the Day');
+});
+
 router.get('/getQuoteoftheDay',function (req, res) 
 {
     quotes = [];
@@ -29,6 +50,10 @@ router.get('/getQuoteoftheDay',function (req, res)
       res.send(quotes[id]);
   
     console.log('Sending Quote of the Day');
+});
+
+router.get('/getVersion',function(req, res) {console.log('Reaching service for testing container');
+res.status(200).json('You are running version QO: 3.1)');
 });
 
 router.get('/getTest',function(req, res) {console.log('Reaching service for testing container');
